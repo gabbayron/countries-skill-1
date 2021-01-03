@@ -1,0 +1,30 @@
+<mat-spinner *ngIf='countriesService.allCountires.length === 0'></mat-spinner>
+<div class="content" *ngIf='countriesService.allCountires.length > 0'>
+    <div class="operetaions">
+        <button (click)='restoreCountries()' mat-flat-button color="accent">
+            Restore All Countries
+        </button> <br>
+        <mat-form-field class="example-form-field">
+            <mat-label>Search Country Here...</mat-label>
+            <input #input (keyup)="applyFilter($event)" matInput type="text">
+        </mat-form-field>
+    </div>
+    <div class="cards" *ngIf='countriesService.allCountires.length > 0'>
+        <mat-card class="card" *ngFor='let country of countriesService.filteredCountries'>
+            <mat-card-header style="text-align: center;">
+                <mat-card-title>Name :</mat-card-title>
+                <mat-card-title>{{country.name}}</mat-card-title>
+            </mat-card-header>
+            <img class="countryImg" mat-card-image src={{country.flag}} alt="Photo of {{country.name}} flag">
+            <mat-card-actions>
+                <button (click)="removeCountry(country.name)" mat-flat-button color="accent">
+                    <mat-icon>delete</mat-icon>
+                    Remove Country
+                </button>
+            </mat-card-actions>
+        </mat-card>
+        <h1 class="mat-display-2" *ngIf='countriesService.filteredCountries.length === 0 '>
+            No Contries Match "{{input.value}}"...
+        </h1>
+    </div>
+</div>
